@@ -18,3 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('trns','TranslateController@translate');
+
+Route::get('trns/google','TranslateController@google');
+
+Route::get('trns/muse','TranslateController@muse');
