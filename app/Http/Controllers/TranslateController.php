@@ -29,17 +29,29 @@ class TranslateController extends Controller
             $res_holonymsA = json_decode((string) $res_holonyms->getBody());
             $res_meronymsA = json_decode((string) $res_meronyms->getBody());
 
-            return [
-                'nouns' => $res_nounsA,
-                'adjs' => $res_adjsA,
-                'syns' => $res_synsA ,
-                'ants' => $res_antsA,
-                'hypernyms' => $res_hypernymsA,
-                'hyponyms' => $res_hyponymsA,
-                'holonyms'=> $res_holonymsA,
-                'holonyms' => $res_holonymsA ,
-                'meronyms' => $res_meronymsA ,
+            $var = [
+                 $res_nounsA,
+                 $res_adjsA,
+                 $res_synsA ,
+                 $res_antsA,
+                 $res_hypernymsA,
+                 $res_hyponymsA,
+                 $res_holonymsA,
+                 $res_holonymsA ,
+                 $res_meronymsA ,
             ];
+            $result = [];
+            for($i=0;$i<9;$i++){
+                $len = count($var[$i]);
+                $temp = [];
+                for($j=0;$j<$len;$j++){
+                    array_push($temp,$var[$i][$j]->word);
+                }
+                if($i==0) $pos = 'nouns';
+                array_push($result,$temp);
+            }
+
+            return $result;
 
         }
         $res = $client->get('https://translation.googleapis.com/language/translate/v2/?q='.$request->q.'&target='.$request->target.'&key=AIzaSyAG_XAAKIJ6negxAQfRx_fryAFjRflqih8');
